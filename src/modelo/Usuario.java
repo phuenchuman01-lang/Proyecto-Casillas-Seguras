@@ -13,7 +13,6 @@ public class Usuario {
     }
 
     public boolean validarCredenciales(String u, String p) {
-        // Usamos .equals para comparar el contenido del texto
         return this.username.equals(u) && this.password.equals(p);
     }
 
