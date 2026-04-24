@@ -1,30 +1,35 @@
 package modelo;
 
 public class Usuario {
-    private String username;
-    private String password;
+    private String nombre;
+    private String contrasena;
     private String rol;
+    private boolean cuentaValidada;
 
-
-    public Usuario(String username, String password, String rol) {
-        this.username = username;
-        this.password = password;
+    public Usuario(String nombre, String contrasena, String rol) {
+        this.nombre = nombre;
+        this.contrasena = contrasena;
         this.rol = rol;
+        this.cuentaValidada = false;
     }
 
-    public boolean validarCredenciales(String u, String p) {
-        return this.username.equals(u) && this.password.equals(p);
+    public boolean validarCredenciales(String user, String pass) {
+        return this.nombre.equals(user) && this.contrasena.equals(pass);
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public String getRol() {
-        return this.rol;
+        return rol;
     }
 
-    public String getUsername() {
-        return this.username;
+    public boolean isCuentaValidada() {
+        return cuentaValidada;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCuentaValidada(boolean cuentaValidada) {
+        this.cuentaValidada = cuentaValidada;
     }
 }
