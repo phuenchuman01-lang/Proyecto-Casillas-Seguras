@@ -16,6 +16,10 @@ public class SessionController {
     }
 
     public boolean iniciarSesion(String u, String p) {
+        // Si el usuario o la contraseña son nulos o están vacíos, retorna false inmediatamente.
+        if (u == null || u.trim().isEmpty() || p == null || p.trim().isEmpty()) {
+            return false;
+        }
             // Crear un ciclo FOR que recorra 'usuariosRegistrados'.
         for (Usuario usuario : usuariosRegistrados) {
             // Validar si las credenciales coinciden y asignar el usuario actual
