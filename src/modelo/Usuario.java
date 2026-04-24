@@ -1,24 +1,30 @@
 package modelo;
 
 public class Usuario {
+    private String username;
+    private String password;
+    private String rol;
 
-    //Declarar los atributos privados (username, password, rol).
 
     public Usuario(String username, String password, String rol) {
-        //Inicializar los atributos en este constructor.
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
     }
 
     public boolean validarCredenciales(String u, String p) {
-        //Implementar la lógica que compare las credenciales.
-        return false; // Retorno temporal
+        return this.username.equals(u) && this.password.equals(p);
     }
 
-    //Crear los métodos Getters para 'rol' y 'username'.
     public String getRol() {
-        return "";
+        return this.rol;
     }
 
     public String getUsername() {
-        return "";
+        return this.username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
