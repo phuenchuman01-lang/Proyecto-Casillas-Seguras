@@ -30,12 +30,20 @@ public class CasilleroController {
     // ==========================================
 
     public void registrarCasillero(int numero, String username) {
-        // Buscar el casillero usando obtenerCasilleroPorNumero(numero).
-        // Si es null, lanzar IllegalArgumentException.
-        // Si esta Disponible, advertir que ya está ocupado.
-        // Validar que el estudiante no tenga otro casillero. Si tiene, lanzar IllegalStateException.
-        // Ocupar el casillero con el username.
-        // Guardar los cambios para JsonManager
+        Casillero c = obtenerCasilleroPorNumero(numero);
+        if (c == null) throw new RuntimeException("Casillero no existente");
+
+        if (!c.estaDisponible()){
+            throw new RuntimeException("Casillero ya ocupado");
+        }
+
+        Casillero casilleroPrevio = buscarCasilleroPorEstudiante(username);
+        if (casilleroPrevio != null) {
+            throw new RuntimeException("El estudiante ya posee un casillero");
+        }
+
+        c.ocupar(username);
+        JsonManager.guardarCasilleros(listaCasilleros);
     }
 
     public void agregarObjetoACasillero(int numero, String objeto) {
