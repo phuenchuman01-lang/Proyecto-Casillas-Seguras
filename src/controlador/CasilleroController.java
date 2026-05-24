@@ -47,16 +47,22 @@ public class CasilleroController {
     }
 
     public void agregarObjetoACasillero(int numero, String objeto) {
-        // Buscar el casillero por número. Si es null, lanzar excepción.
-        // Agregar el objeto al casillero
-        // Guardar los cambios en el JSON.
+        Casillero c = obtenerCasilleroPorNumero(numero);
+        if (c == null) throw new IllegalArgumentException("Casillero no encontrado.");
+
+        c.agregarObjeto(objeto);
+        JsonManager.guardarCasilleros(listaCasilleros);
     }
 
     public void quitarObjetoDeCasillero(int numero, String objeto) {
-        // Buscar el casillero por número.
-        // Llamar a quitar Objeto en el casillero.
-        // Si el métod retorna false (no se eliminó), lanzar IllegalArgumentException indicando que no existía el objeto.
-        // Guardar los cambios en el JSON.
+        Casillero c = obtenerCasilleroPorNumero(numero);
+        if (c == null) throw new IllegalArgumentException("Casillero no encontrado.");
+
+        boolean eliminado = c.quitarObjeto(objeto);
+        if (!eliminado) {
+            throw new IllegalArgumentException("El objeto no existía en el casillero.");
+        }
+        JsonManager.guardarCasilleros(listaCasilleros);
     }
 
     public void liberarCasillero(int numero) {
