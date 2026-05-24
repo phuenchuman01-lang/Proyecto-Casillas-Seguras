@@ -38,17 +38,20 @@ public class SessionController {
     }
 
     public void registrarEstudiante(String u, String p) {
-        // Validar que 'u' y 'p' no estén vacíos. Lanzar IllegalArgumentException si lo están.
-        // Recorrer 'usuariosRegistrados' para ver si ya existe alguien con el mismo 'u' (ignorar mayúsculas).
-        // Si ya existe, lanzar IllegalArgumentException indicando que el usuario ya existe.
-        // Crear un nuevo objeto Estudiante(u, p).
-        // Añadirlo a la lista 'usuariosRegistrados'.
-        // Guardar los cambios llamando a: JsonManager.guardarUsuarios(usuariosRegistrados);
-        Usuario nuevoEstudiante = new Usuario(u, p, "ESTUDIANTE");
-        usuariosRegistrados.add(nuevoEstudiante);
         if (u == null || u.trim().isEmpty() || p == null || p.trim().isEmpty()) {
             throw new IllegalArgumentException("El usuario y la contraseña no pueden estar vacíos.");
         }
+
+        for (Usuario usuario : usuariosRegistrados) {
+            if (usuario.getUsername().equalsIgnoreCase(u)){
+                throw new IllegalArgumentException("El usuario ya existe en el sistema.");
+            }
+        }
+
+        Usuario nuevoEstudiante = new Usuario(u, p, "ESTUDIANTE");
+        usuariosRegistrados.add(nuevoEstudiante);
+
+        JsonManager.guardarUsuarios(usuariosRegistrados);
     }
 
     public void cerrarSesion() {
