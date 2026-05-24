@@ -14,10 +14,8 @@ public class SessionController {
     private final List<Usuario> usuariosRegistrados;
     private Usuario usuarioActual;
 
-    public SessionController() {    //Por aqui necesito que cambies el constructor para que en lugar de crear una lista
-        // de usuarios, consulte directamente al JSON para cargar los usuarios registrados.
-        usuariosRegistrados.add(new Usuario("admin", "admin123", "DOCENTE"));
-        usuariosRegistrados.add(new Usuario("alumno", "test1234", "ESTUDIANTE"));
+    public SessionController() {
+        this.usuariosRegistrados = JsonManager.cargarUsuarios();
     }
 
     public boolean iniciarSesion(String u, String p) {
