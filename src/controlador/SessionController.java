@@ -18,18 +18,12 @@ public class SessionController {
         this.usuariosRegistrados = JsonManager.cargarUsuarios();
     }
 
-    public boolean iniciarSesion(String u, String p) {
-        //Luih, necesito que agregues esto al bloque de IniciarSesion
-        // Validar que 'u' y 'p' no sean nulos ni estén vacíos. Si lo están, retornar false.
-        // Recorrer la lista 'usuariosRegistrados' con un ciclo for.
-        // En cada iteración, usar el métod validarCredenciales(u, p) del usuario.
-        // Si las credenciales coinciden, asignar ese usuario a 'this.usuarioActual' y retornar true.
-        // Si termina el ciclo y no se encontró, retornar false
-        if (u == null || u.trim().isEmpty() || p == null || p.trim().isEmpty()) {
+    public boolean iniciarSesion(String user, String password) {
+        if (user == null || user.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             return false;
         }
         for (Usuario usuario : usuariosRegistrados) {
-            if (usuario.validarCredenciales(u, p)) {
+            if (usuario.validarCredenciales(user, password)) {
                 this.usuarioActual = usuario;
                 return true;
             }
@@ -37,18 +31,18 @@ public class SessionController {
         return false;
     }
 
-    public void registrarEstudiante(String u, String p) {
-        if (u == null || u.trim().isEmpty() || p == null || p.trim().isEmpty()) {
+    public void registrarEstudiante(String user, String password) {
+        if (user == null || user.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             throw new IllegalArgumentException("El usuario y la contraseña no pueden estar vacíos.");
         }
 
         for (Usuario usuario : usuariosRegistrados) {
-            if (usuario.getUsername().equalsIgnoreCase(u)){
+            if (usuario.getUsername().equalsIgnoreCase(user)){
                 throw new IllegalArgumentException("El usuario ya existe en el sistema.");
             }
         }
 
-        Usuario nuevoEstudiante = new Usuario(u, p, "ESTUDIANTE");
+        Usuario nuevoEstudiante = new Usuario(user, password, "ESTUDIANTE");
         usuariosRegistrados.add(nuevoEstudiante);
 
         JsonManager.guardarUsuarios(usuariosRegistrados);
